@@ -1,0 +1,37 @@
+%% Client Intel OBJ 시각화
+clear; close all; clc;
+addpath(genpath('D:\Gaimsat_pj\matsim\util'));
+
+%% 모델 로드 및 시각화
+fprintf('Loading Client Intel...\n');
+tic;
+
+figure('Name', 'Client Intel Satellite', 'Position', [100 100 800 600], 'Color', 'k');
+
+% [obj, mat, matAssign] = readObjWithCache('D:\Gaimsat_pj\matsim\model\modeling_3d\client_intel.obj');
+[obj, mat, matAssign] = readObjWithCache('D:\Gaimsat_pj\matsim\model\modeling_3d\client_intel.obj');
+
+fprintf('Loading time: %.2f seconds\n', toc);
+
+plotObjModel(obj, mat, matAssign);
+title('Client Intel Satellite', 'Color', 'w', 'FontSize', 14);
+view(45, 30);
+
+% 검은 배경 설정
+ax = gca;
+ax.Color = 'k';
+ax.XColor = 'w';
+ax.YColor = 'w';
+ax.ZColor = 'w';
+ax.GridColor = [0.3 0.3 0.3];
+ax.GridAlpha = 0.3;
+
+% 조명 추가
+camlight('headlight');
+camlight('left');
+lighting gouraud;
+material dull;
+
+% 모델 크기 출력
+fprintf('\n=== Model Dimensions ===\n');
+printModelDimensions(obj.v);
